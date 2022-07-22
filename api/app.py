@@ -8,3 +8,5 @@ app = FastAPI(title='API Challenge AB InBev',
 @app.get('/health')
 def health_msg():
     return {'status':'Service UP'}
+
+# uvicorn app:app
