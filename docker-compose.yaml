@@ -1,0 +1,46 @@
+services:
+  api:
+    image: ab_inbev_api
+    container_name: ab_inbev
+    
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+
+    working_dir: /api/
+
+    depends_on:
+      - mongo
+
+    tty: true
+
+    networks:
+      - project_network
+
+  frontend:
+    image: streamlit_front
+    container_name: streamlit_app
+    
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    working_dir: /app/
+    
+    networks:
+      - project_network
+
+    depends_on:
+      - api
+
+  mongo:
+    container_name: mongo-db
+    image: mongo
+
+    tty: true
+
+    networks:
+      - project_network
+
+networks:
+  project_network:
