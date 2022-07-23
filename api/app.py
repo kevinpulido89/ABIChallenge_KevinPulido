@@ -1,28 +1,34 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi.responses import HTMLResponse
+from recursos import api_router
 
-_VERSION = '1.2.0'
+import nltk
+nltk.download('omw-1.4')
 
-class RandomNumber(BaseModel):
-    rand_number: int
-
+_VERSION = '2.0.0'
 
 app = FastAPI(title='API Challenge AB InBev',
               version=_VERSION)
 
-@app.post('/random')
-def predict(number: RandomNumber):
-    ''' Recibe un número entero aleatorio y lo devuelve en el response'''
-    return number.rand_number
+app.include_router(api_router)
 
-@app.get('/health', status_code=200, tags=['Health'])
+@app.get('/health', status_code=200, tags=['Info'])
 def health_msg():
     ''' Devuelve un mensaje de status predeterminado si y solo si la API está arriba. Endpoint de health para monitoreo.'''
     return {'status':'Service UP'}
 
-@app.get('/', status_code=200, tags=['Health'])
+@app.get('/', status_code=200, tags=['Info'])
 def index():
     '''Devuelve un mensaje predeterminado en el Endpoint raíz.'''
-    return {'MSG':'Para ver la documentación vaya a la url /redoc'}
+    content = """
+        <body>
+        <h2> API del challenge de AB InBev</h2>
+        <p> La siguiente API es el resultado del desarrollo según los lineamientos dados en la documentación de la prueba técnica: </p>
+        <p> Para ver y probar los endpoints que componen la API se puede hacer através de la URL: localhost:8108/docs </p>
+        <p> Para probar la API se creó un front (UI) con Streamlit que hace peticiones a esta API.</p>
+        </body>
+    """
 
-# uvicorn app:app
+    return HTMLResponse(content=content)
+
+# uvicorn app:app --reload
