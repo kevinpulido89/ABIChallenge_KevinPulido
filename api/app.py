@@ -2,10 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from recursos import api_router
 
-import nltk
-nltk.download('omw-1.4')
-
-_VERSION = '2.0.0'
+_VERSION = '2.0.1'
 
 app = FastAPI(title='API Challenge AB InBev',
               version=_VERSION)
