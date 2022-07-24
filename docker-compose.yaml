@@ -1,46 +1,63 @@
 services:
   api:
-    image: ab_inbev_api
-    container_name: ab_inbev
+    image: keanp89/ab_inbev_api
+    container_name: ab_inbev_api_8505
     
     build:
       context: ./api
       dockerfile: Dockerfile
 
-    working_dir: /api/
+    ports:
+      - 8505:8505
 
-    depends_on:
-      - mongo
+    working_dir: /code/
+    command: uvicorn app:app --port 8505 --host 0.0.0.0 --reload --workers 4
+    # command: gunicorn app:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8108 --log-level debug
+
+    # depends_on:
+    #   - mongo
 
     tty: true
 
     networks:
       - project_network
 
+    volumes:
+      - ./api/:/code/
+
+    restart: on-failure
+
   frontend:
-    image: streamlit_front
-    container_name: streamlit_app
+    image: keanp89/streamlit_front
+    container_name: streamlit_app_8504
     
     build:
       context: ./frontend
       dockerfile: Dockerfile
 
-    working_dir: /app/
-    
+    ports:
+      - 8504:8504
+
+    working_dir: /front_code/
+    command: streamlit run st_front.py --server.port 8504
+ 
     networks:
       - project_network
 
     depends_on:
       - api
 
-  mongo:
-    container_name: mongo-db
-    image: mongo
+    volumes:
+      - ./frontend/:/front_code/
 
-    tty: true
+  # mongo:
+  #   container_name: mongo-db
+  #   image: mongo
 
-    networks:
-      - project_network
+  #   tty: true
+
+  #   networks:
+  #     - project_network
 
 networks:
   project_network:
