@@ -4,7 +4,7 @@ from data_structure import Tuits
 
 def main():
     st.set_page_config(page_title="Sentiment Analysis App", page_icon="🤖")
-    st.title("Sentiment Analysis 📚🤖")
+    st.title("Text Sentiment Analysis 📚🤖")
 
     with st.form("my_form"):
         tweet1 = st.text_input("First text")
@@ -15,7 +15,6 @@ def main():
         if submitted:
             msg = Tuits(textos=[tweet1,tweet2])
 
-            # response = requests.post('http://localhost:8000/predict', json=msg.__dict__)
             response = requests.post('http://ab_inbev_api_8505:8505/predict', json=msg.__dict__)
 
             st.write(response.json())
@@ -23,4 +22,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
