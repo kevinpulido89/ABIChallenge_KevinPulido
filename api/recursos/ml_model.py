@@ -12,10 +12,15 @@ class ModelPipeline:
     # Carga el modelo almacenado como archivo .pickle
     try:
         loaded_model = pickle.load(open('./recursos/models/pipeline.pickle', 'rb'))
-        print("Modelo cargado con éxito! ✅")
-    except Exception as e:
-        print(e)
-        raise e
+        print("Modelo cargado con éxito!! ✅")
+    except Exception:
+        try:
+            loaded_model = pickle.load(open('./models/pipeline.pickle', 'rb'))
+            print("Modelo cargado con éxito ✅")
+        except Exception as e:
+            print(e)
+            print("Modelo NO fue cargado ❌")
+            raise e
 
     # Diccionario int : label
     pred_to_label = {0: 'Negative', 1: 'Positive'}
