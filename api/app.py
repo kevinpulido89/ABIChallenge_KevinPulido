@@ -1,13 +1,15 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from recursos import api_router
+from recursos import app_prediccion, app_db_handler
 
-_VERSION = '2.0.2'
+_VERSION = '3.0.0'
 
 app = FastAPI(title='API Challenge AB InBev',
               version=_VERSION)
 
-app.include_router(api_router)
+app.include_router(app_prediccion)
+app.include_router(app_db_handler)
+
 
 @app.get('/health', status_code=200, tags=['Info'])
 def health_msg():
@@ -27,5 +29,3 @@ def index():
     """
 
     return HTMLResponse(content=content)
-
-# uvicorn app:app --reload
