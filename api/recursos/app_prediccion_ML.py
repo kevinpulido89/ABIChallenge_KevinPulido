@@ -15,7 +15,7 @@ async def get_prediction(tweets: Tuits) -> JSONResponse:
     Endpoint de predicción que recibe Tuits y responde con un JSON (respuesta válida o error)
 
         Args:
-            tweets (Tuits): _description_
+            tweets (Tuits): Objeto cuya estructura tiene los textos que se desean clasificar
 
         Returns:
             JSONResponse: JSON con infomación de la respuesta. Si la respuesta es correcta la estructura es del tipo 'RespuestaModelo'. Si la respuesta es inválida es un 'JSONResponse' con status code y texto del error.
@@ -32,9 +32,16 @@ async def get_prediction(tweets: Tuits) -> JSONResponse:
         prediccion = modelo_pipeline.predict_pipeline(samples)
 
         #Almacena en Mongo la prediccion
-        await DataBaseActions.insert(prediccion)
-
-        return JSONResponse(prediccion)
+        try:
+            await DataBaseActions.insert(prediccion)
+            return JSONResponse(content = {
+                    "MongoDB": "✅ Datos almacenados con éxito!",
+                    "Response_Predict": prediccion})
+        except Exception as e:
+            print(e)
+            return JSONResponse(content = {
+                        "MongoDB": "❌ Datos NO almacenados. Error en la conexión",
+                        "Response_Predict": prediccion})
         
     except ValueError as e:
         return JSONResponse(content=f"Error: {e}", status_code=422)
