@@ -9,8 +9,10 @@ lemmatizer = WordNetLemmatizer()
 @dataclass
 class ModelPipeline:
 
+    # Carga el modelo almacenado como archivo .pickle
     loaded_model = pickle.load(open('./recursos/models/pipeline.pickle', 'rb'))
 
+    # Diccionario int : label
     pred_to_label = {0: 'Negative', 1: 'Positive'}
 
     emojis = {':)': 'smile', ':-)': 'smile', ';d': 'wink', ':-E': 'vampire', ':(': 'sad',
