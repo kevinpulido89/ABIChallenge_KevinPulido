@@ -2,7 +2,7 @@ import re
 import pickle
 from nltk.stem import WordNetLemmatizer
 from dataclasses import dataclass
-from .data_structure import Tuits, RespuestaModelo
+from .data_structure import RespuestaModelo
 
 lemmatizer = WordNetLemmatizer()
 
@@ -10,7 +10,12 @@ lemmatizer = WordNetLemmatizer()
 class ModelPipeline:
 
     # Carga el modelo almacenado como archivo .pickle
-    loaded_model = pickle.load(open('./recursos/models/pipeline.pickle', 'rb'))
+    try:
+        loaded_model = pickle.load(open('./recursos/models/pipeline.pickle', 'rb'))
+        print("Modelo cargado con éxito! ✅")
+    except Exception as e:
+        print(e)
+        raise e
 
     # Diccionario int : label
     pred_to_label = {0: 'Negative', 1: 'Positive'}

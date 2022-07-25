@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from recursos import app_prediccion, app_db_handler
 
-_VERSION = '3.0.1'
+_VERSION = '3.1.0'
 
 app = FastAPI(title='API Challenge AB InBev',
               description="API para disponibilizar modelo de ML que hace Sentiment Classification de texto escrito en inglés.",

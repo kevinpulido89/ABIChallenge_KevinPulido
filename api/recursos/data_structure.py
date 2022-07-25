@@ -25,22 +25,25 @@ class Prediccion(BaseModel):
         }
 
 class RespuestaModelo(BaseModel):
-
-    respuesta: list[Prediccion]
+    MongoDB: str
+    Response_Predict: list[Prediccion]
 
     class Config:
         schema_extra = {
             "example": 
-            [
-                {
+            {
+                "MongoDB": "✅ Datos almacenados con éxito!",
+                "Response_Predict": [
+                    {
                     "tweet": "it's OK my friend",
                     "pred": 1,
                     "label": "Positive"
-                },
-                {
+                    },
+                    {
                     "tweet": "That's bad!",
                     "pred": 0,
                     "label": "Negative"
-                }
-            ]
+                    }
+                ]
+            }
         }
