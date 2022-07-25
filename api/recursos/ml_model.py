@@ -15,6 +15,7 @@ class ModelPipeline:
         print("Modelo cargado con éxito! ✅")
     except Exception as e:
         print(e)
+        print("Modelo NO fue cargado ❌")
         raise e
 
     # Diccionario int : label
