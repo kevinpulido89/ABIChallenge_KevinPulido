@@ -2,6 +2,9 @@ services:
   api:
     image: keanp89/ab_inbev_api
     container_name: ab_inbev_api_8505
+
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
     
     build:
       context: ./api
@@ -14,8 +17,8 @@ services:
     command: uvicorn app:app --port 8505 --host 0.0.0.0 --reload --workers 4
     # command: gunicorn app:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8108 --log-level debug
 
-    # depends_on:
-    #   - mongo
+    depends_on:
+      - mongo
 
     tty: true
 
@@ -50,14 +53,17 @@ services:
     volumes:
       - ./frontend/:/front_code/
 
-  # mongo:
-  #   container_name: mongo-db
-  #   image: mongo
+  mongo:
+    image: mongo
+    container_name: mongo-db
 
-  #   tty: true
+    tty: true
 
-  #   networks:
-  #     - project_network
+    networks:
+      - project_network
+
+    volumes:
+      - ./db:/data/db
 
 networks:
   project_network:
