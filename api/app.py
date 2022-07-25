@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from recursos import api_router
 
-_VERSION = '2.0.1'
+_VERSION = '2.0.2'
 
 app = FastAPI(title='API Challenge AB InBev',
               version=_VERSION)
