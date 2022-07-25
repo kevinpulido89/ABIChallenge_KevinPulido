@@ -1,15 +1,16 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from .data_structure import Tuits, RespuestaModelo
+from .DB_handler import DataBaseActions
 from .ml_model import ModelPipeline
 
 
-api_router = APIRouter()
+app_prediccion = APIRouter()
 modelo_pipeline = ModelPipeline()
 
 
-@api_router.post('/predict', status_code=200, response_model=RespuestaModelo, tags=['ML'])
-def get_prediction(tweets: Tuits) -> JSONResponse:
+@app_prediccion.post('/predict', status_code=200, response_model=RespuestaModelo, tags=['ML'])
+async def get_prediction(tweets: Tuits) -> JSONResponse:
     """
     Endpoint de predicción que recibe Tuits y responde con un JSON (respuesta válida o error)
 
@@ -26,7 +27,11 @@ def get_prediction(tweets: Tuits) -> JSONResponse:
         return JSONResponse(content="No hay texto para predecir", status_code=400)
     
     try:
+        # Clasifica el batch de textos
         prediccion = modelo_pipeline.predict_pipeline(samples)
+
+        #Almacena en Mongo la prediccion
+        await DataBaseActions.insert(prediccion)
 
         return JSONResponse(prediccion)
     except ValueError as e:
