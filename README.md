@@ -18,6 +18,10 @@ anything on the next topic.**
 Expose any already trained machine learning model as an API, please keep working on the
 same private repo.***
 
+Solution available at:
+ - http://ec2-35-153-192-47.compute-1.amazonaws.com:8505/docs [API](http://ec2-35-153-192-47.compute-1.amazonaws.com:8505/docs)
+ - http://ec2-35-153-192-47.compute-1.amazonaws.com:8504 [Frontend](http://ec2-35-153-192-47.compute-1.amazonaws.com:8504)
+
 Your API might meet the following requirements:
 - Should be written in Python following OOP standards.
 - ✅ Should contain inline documentation.
