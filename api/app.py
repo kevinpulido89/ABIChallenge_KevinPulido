@@ -2,23 +2,30 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from recursos import app_prediccion, app_db_handler
 
-_VERSION = '3.0.0'
+_VERSION = '3.0.1'
 
 app = FastAPI(title='API Challenge AB InBev',
+              description="API para disponibilizar modelo de ML que hace Sentiment Classification de texto escrito en inglés.",
               version=_VERSION)
 
+# Añade los endpoint del api router de app_prediccion_ML
 app.include_router(app_prediccion)
+
+# Añade los endpoint del api router de app_db
 app.include_router(app_db_handler)
 
 
 @app.get('/health', status_code=200, tags=['Info'])
 def health_msg():
     ''' Devuelve un mensaje de status predeterminado si y solo si la API está arriba. Endpoint de health para monitoreo.'''
+    
     return {'status':'Service UP'}
 
+
 @app.get('/', status_code=200, tags=['Info'])
-def index():
+def index() -> HTMLResponse:
     '''Devuelve un mensaje predeterminado en el Endpoint raíz.'''
+
     content = """
         <body>
         <h2> API del challenge de AB InBev</h2>

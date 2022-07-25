@@ -22,6 +22,7 @@ async def get_prediction(tweets: Tuits) -> JSONResponse:
     """
 
     try:
+        # Extrae los textos de la instancia tweets en formato lista
         samples = tweets.textos
     except KeyError:
         return JSONResponse(content="No hay texto para predecir", status_code=400)
@@ -34,5 +35,6 @@ async def get_prediction(tweets: Tuits) -> JSONResponse:
         await DataBaseActions.insert(prediccion)
 
         return JSONResponse(prediccion)
+        
     except ValueError as e:
         return JSONResponse(content=f"Error: {e}", status_code=422)
