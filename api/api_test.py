@@ -19,12 +19,14 @@ out = {
       }
 
 def test_health_msg():
+    "funcion de test para el endpoint root"
     response = client.get('/health')
     assert response.status_code == 200
     assert response.json() == {'status':'Service UP'}
-    print("✅ Test Done!")
+
 
 def test_get_prediction():
+    "funcion de test para el endpoint predict"
     response = client.post('/predict', json=msg)
     assert response.status_code == 200
     assert response.json() == out
