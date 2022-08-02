@@ -1,6 +1,6 @@
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=kevinpulido89_ABIChallenge_KevinPulido)
-
 # ABIChallenge_KevinPulido
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=kevinpulido89_ABIChallenge_KevinPulido)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=kevinpulido89_ABIChallenge_KevinPulido&token=ce60e34129e1e176ebcb6af15a901ac9e0f59101)](https://sonarcloud.io/summary/new_code?id=kevinpulido89_ABIChallenge_KevinPulido)
 
 ## Architecture
 Draw a diagram and upload it into the private repo to deploy a ML Model into production on any
